@@ -5,28 +5,35 @@ using UnityEngine;
 public class Signaling : MonoBehaviour
 {
     [SerializeField] private AudioClip _signaling;
-    AudioSource audioSource;
+
+    private AudioSource _alarmPlayer;
+
     private bool _isSignaling = false;
+
     private void Start()
     {
-        audioSource = GetComponent<AudioSource>();
+        _alarmPlayer = GetComponent<AudioSource>();
     }
+
     private void Update()
     {
         if(_isSignaling)
-            audioSource.volume += Time.deltaTime;
+            _alarmPlayer.volume += Time.deltaTime;
         else
-            audioSource.volume -= Time.deltaTime;
+            _alarmPlayer.volume -= Time.deltaTime;
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<Player>(out Player player))
         {
             _isSignaling = !_isSignaling;
+
             if(_isSignaling)
-                audioSource.PlayOneShot(_signaling);
-            if (audioSource.volume == 0 && !_isSignaling)
-                audioSource.Stop();
+                _alarmPlayer.PlayOneShot(_signaling);
+
+            if (_alarmPlayer.volume == 0 && !_isSignaling)
+                _alarmPlayer.Stop();
         }
     }
 }
