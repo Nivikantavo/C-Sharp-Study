@@ -9,7 +9,7 @@ public class Signaling : MonoBehaviour
     private AudioSource _alarmPlayer;
 
     private bool _isSignaling = false;
-
+    
     private void Start()
     {
         _alarmPlayer = GetComponent<AudioSource>();
